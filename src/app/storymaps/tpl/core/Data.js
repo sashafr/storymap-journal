@@ -28,6 +28,7 @@ define(["./WebApplicationData",
 			this.getWebMap = function()
 			{
 				return _webmapItem;
+				
 			};
 
 			this.setWebMap = function(webmapItem)

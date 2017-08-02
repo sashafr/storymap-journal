@@ -1,5 +1,7 @@
 .esriSimpleSlider {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	margin-top: 20px;
+	top:70px;
 }
 
 .esriSimpleSlider.touch div {

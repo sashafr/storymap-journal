@@ -136,6 +136,7 @@ define(["lib-build/css!./MainView",
 					$("#floatingPanel"),
 					app.isInBuilder,
 					navigateStoryToIndex
+
 				);
 
 				app.isAddEditInProgress = false;
@@ -288,7 +289,6 @@ define(["lib-build/css!./MainView",
 			this.loadWebmap = function(webmapIdOrJSON, container, extent)
 			{
 				console.log("tpl.core.MainView - loadWebMap - webmapId:", webmapIdOrJSON);
-
 				//var popup = $("body").width() > 768 ? null : new PopupMobile(null, $("<div></div>")[0]);
 				var popup = null;
 
@@ -398,6 +398,7 @@ define(["lib-build/css!./MainView",
 					}
 					// It's a Map - wait for it to be loaded/centered
 					else {
+
 						var handle, handle2;
 
 						handle = topic.subscribe("story-loaded-map", function(){
@@ -519,7 +520,9 @@ define(["lib-build/css!./MainView",
 
 			// about data...
 			function updateUIStory()
+
 			{
+
 				if ( app.data.getStoryByIndex(0) )
 					document.title = $('<div>' + app.data.getStoryByIndex(0).title + '</div>').text();
 
@@ -544,6 +547,7 @@ define(["lib-build/css!./MainView",
 				// TODO: should only refresh the item
 				updateUIStory();
 				//navigateStoryToIndex(cfg.index);
+
 			}
 
 			// Layout only
@@ -566,6 +570,7 @@ define(["lib-build/css!./MainView",
 					initDesktopLayout(appLayout);
 					// Need to wait a bit for Side Panel
 					setTimeout(function(){
+
 						navigateStoryToIndex(app.data.getCurrentSectionIndex());
 						updateUIStory();
 					}, 50);
@@ -736,7 +741,21 @@ define(["lib-build/css!./MainView",
 
 			function navigateStoryToIndex(index)
 			{
-				console.log("tpl.core.MainView - navigateStoryToIndex - ", index);
+				//hide the filter and toggle buttons when the user navigates away from the homepage,
+				//and show them when the user navigates to the homepage
+				if (index == 0) {
+					document.getElementById("buttonDiv").style.display = "inline-flex";
+			    document.getElementById("toggle").style.display = "block";
+					document.getElementById("sliderDiv").style.display = "block";
+				}
+
+				if (index != 0) {
+					document.getElementById("buttonDiv").style.display = "none";
+			    document.getElementById("toggle").style.display = "none";
+					document.getElementById("sliderDiv").style.display = "none";
+				}
+
+				//console.log("tpl.core.MainView - navigateStoryToIndex - ", index);
 
 				if ( index < 0 || index > app.data.getStoryLength() - 1 )
 					return;

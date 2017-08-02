@@ -472,7 +472,9 @@ define(["dojo/cookie",
 				var searchOptions = {
 					map: p.map,
 					allPlaceholder: p.placeHolder,
-					enableButtonMode: p.enableButtonMode
+					enableButtonMode: p.enableButtonMode,
+					enableInfoWindow: false,
+					enableLabel: true
 				};
 
 				if (allSources && allSources.length) {
@@ -558,6 +560,10 @@ define(["dojo/cookie",
 					var newSource = {
 						singleLineFieldName: response[1].singleLineAddressField.name,
 						name: targetGeocoder.name ? targetGeocoder.name : response[1].name,
+						localSearchOptions: {
+      					minScale: 300000,
+      					distance: 50000
+    						},
 						placeholder: targetGeocoder.placeholder || fallbackPlaceholder || i18n.commonWebmap.selector.placeholderGenericGeocoder,
 						locator: newLocator
 					};
@@ -575,6 +581,7 @@ define(["dojo/cookie",
 					sources.push(newSource);
 				});
 				return sources;
+
 			},
 
 			processAppDataGeocoders: function(fallbackPlaceholder) {
@@ -605,11 +612,21 @@ define(["dojo/cookie",
 				});
 				return sources;
 
+
 			},
 
 			setGeocodeSources: function(search, sources) {
+				//restrict the search bounds to the greater Philadelphia area
+				var extent = new Extent({
+         "xmin": -74.95556,
+            "xmax": -75.30556,
+            "ymin": 39.84556,
+            "ymax": 40.11194
+         });
+
 				this.checkForSourceNameDuplicates(sources);
 				search.set('sources', sources);
+				search.sources[0].searchExtent = extent;
 				search.set('activeSourceIndex', 0);
 				search.startup();
 			},

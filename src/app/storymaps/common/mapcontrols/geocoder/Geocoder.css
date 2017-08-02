@@ -1,8 +1,9 @@
 .geocoderBtn {
 	position: absolute;
-	top: 125px;
+	top: 40px;
 	border: none !important;
 	left: 20px;
+	margin-top: 10px;
 }
 
 .geocoderBtn .searchGroup {

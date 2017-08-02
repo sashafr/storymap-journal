@@ -233,6 +233,7 @@ define(["dojo/topic",
 			}
 
 			if ( action.type == "navigate" ) {
+      
 				if (action.index !== undefined) {
 					topic.publish('story-navigate-section', action.index);
 				}

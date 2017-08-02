@@ -15,7 +15,8 @@ else {
 			"dojo/dom",
 			"app/custom-scripts",
 			"lib-app/jquery",
-			"dojo/ready"
+			"dojo/ready",
+		
 		], function(
 			i18nViewer,
 			urlUtils,

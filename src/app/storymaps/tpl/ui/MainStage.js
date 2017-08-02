@@ -45,6 +45,7 @@ define(["lib-build/tpl!./MainMediaContainerMap",
 	){
 		return function MainStage(container, isInBuilder, mainView)
 		{
+	
 			var _this = this;
 
 			//
@@ -422,6 +423,7 @@ define(["lib-build/tpl!./MainMediaContainerMap",
 
 								// Popup
 								if ( app.map.infoWindow ) {
+
 									$(app.map.infoWindow.domNode).addClass("light");
 									app.map.infoWindow.markerSymbol = new SimpleMarkerSymbol().setSize(0);
 								}

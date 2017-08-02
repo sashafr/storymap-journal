@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<title></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,6 +11,24 @@
 
 		<link type="image/ico" rel="shortcut icon" href="resources/tpl/viewer/icons/favicon.ico">
 		<link type="image/ico" rel="icon"  href="resources/tpl/viewer/icons/favicon.ico">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+
+	@media.container{
+		width:600px;
+	}
+
+  </style>
+
 
 		<!--
 			To correctly reference your Map Journal in search engine:
@@ -37,7 +56,7 @@
 			//-------------------------------------------------------------------------------------------
 			var configOptions = {
 				// Enter an application ID created through the Map Journal builder
-				appid: "",
+				appid: "9dfb29e1e15443239352b6e3099fb630",
 				// Optionally to secure Journal's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
 				// User will need to sign-in to access the viewer even if your application is public
 				oAuthAppId: "",
@@ -81,21 +100,26 @@
 			/* CUSTOM CSS RULES */
 		</style>
 
+
+
 		<!-- Builder top panel is injected here -->
 		<div id="builderPanel" class="hide mainViewAboveMap"></div>
 
 		<!-- Content -->
 		<div id="contentPanel" class="mobileView">
-			<table class="containerPanelInner">
+
+			<table class="containerPanelInner" >
 				<tr>
 					<!-- Text panel of the Side Panel layout -->
 					<td id="sidePanel">
+
 						<div id="sidePanelInner" class="mainViewSideMap sidePanel sectionPanel">
+							<div id = "testDiv"></div>
 							<div class="navDots vertical">
 								<!-- navigation dots -->
 							</div>
 							<div class="header" aria-hidden="true">
-								<div class="linkSocialContainer">
+								<div id = "socialDiv" class="linkSocialContainer">
 									<span class="linkContainer"></span>
 									<span class="shareBtns">
 										<i class="shareIcon blackHover share_facebook icon-facebook-squared" tabindex="-1"></i>
@@ -147,9 +171,165 @@
 						</div>
 					</td>
 					<!-- Map -->
-					<td id="mainStagePanel" tabindex="1">
+					<td id="mainStagePanel" tabindex="1" >
 						<div id="mainStagePanelInner">
-							<div class="medias">
+					<!--Buttons to filter, show all, toggle, and collapse the side panel -->
+
+							<div id = "collapseButton">
+								<button type="button" id = "collapse">Hide</button>
+							</div>
+							<div id = "geocoder" style = "position:relative; z-index:1000"></div>
+							<div id = "buttonDiv">
+								<input class="w3-button w3-large w3-round" style = "background-color: #d8e6cc" type="button"  id="showAll" value="Show all"/>
+								<select id="time_select" style = "background-color: #d8e6cc; height:30px" class="selector"><option value="init">(filter by date)</option></select>
+							</div>
+							<div id = "toggle">
+								<div class="layerText">Historic parcels</div>
+								<label class="switch" style = "vertical-align:middle">
+	  							<input type="checkbox">
+	  							<span id = "toggleLayers" class="slider">
+									</span>
+								</label>
+								<div class="layerText" >Modern parcels</div>
+							</div>
+
+							<div id = "sliderDiv" class="row">
+							  <input type="range" id="dateRange" value="1850" min = "1850" max = "2010" step = "5"  style = "width:200px; position:relative">
+								<div id = "sliderValue" style = "text-align:center"></div>
+							</div>
+						</div>
+
+					<style>
+
+						#socialDiv.linkSocialContainer {
+							left:10px;
+						}
+
+						#sliderDiv {
+								position:relative;
+								top:80%;
+								background-color: rgb(216, 230, 204);
+								left:45%;
+								z-index:30;
+								width:210px;
+								height:45px;
+								padding:4px;
+								border: 1px solid black
+						}
+
+						#collapseButton {
+								width:50px;
+								position: relative;
+								float:left;
+
+						}
+
+						#collapse {
+								position: relative;
+								z-index:30;
+								background-color: rgb(119, 119, 119);
+								color:rgb(192, 192, 192);
+								border:none; font-weight:bold;
+								text-transform:uppercase;
+								font-size: 0.9em
+						}
+
+						#buttonDiv {
+								position: relative;
+								z-index:30;
+								width: 200px;
+								margin-top:10px;
+								left:15%;
+								display: none;
+
+						}
+
+						#toggle {
+								position: relative;
+								z-index:30;
+								width: 200px;
+								float:left;
+								left:15%;
+								margin-top:10px;
+								display: none
+						}
+
+						.layerText {
+							word-wrap:break-word;
+							word-break:break-word;
+							width:55px;
+							line-height:12px;
+							position:relative;
+							display: inline-block;
+							vertical-align: middle;
+							font-weight: bold;
+						}
+							.switch {
+					  position: relative;
+					  display: inline-block;
+					  width: 60px;
+					  height: 34px;
+						}
+
+					.switch input {display:none;}
+
+					.slider {
+					  position: absolute;
+					  cursor: pointer;
+					  top: 0;
+					  left: 0;
+					  right: 0;
+					  bottom: 0;
+					  background-color: #ccc;
+					  -webkit-transition: .4s;
+					  transition: .4s;
+					}
+
+					.slider:before {
+					  position: absolute;
+					  content: "";
+					  height: 26px;
+					  width: 26px;
+					  left: 4px;
+					  bottom: 4px;
+					  background-color: white;
+					  -webkit-transition: .4s;
+					  transition: .4s;
+					}
+
+					input:checked + .slider {
+					  background-color: #2196F3;
+					}
+
+					input:focus + .slider {
+					  box-shadow: 0 0 1px #2196F3;
+					}
+
+					input:checked + .slider:before {
+					  -webkit-transform: translateX(26px);
+					  -ms-transform: translateX(26px);
+					  transform: translateX(26px);
+					}
+
+					.carousel-indicators li {
+						width: 1px;
+						height: 5px;
+						margin: 1px;
+
+					}
+
+					.carousel-indicators .active {
+						width: 1px;
+						height: 8px;
+						margin: 1px;
+
+					}
+
+
+
+			</style>
+
+							<div class="medias" >
 								<!-- Maps and media injected here -->
 							</div>
 							<div id="mainStageLoadingIndicator" class="loadingIndicator" role="alert" aria-live="polite">
@@ -341,5 +521,12 @@
 		<div class="print-warning"></div>
 
 		<script type="text/javascript" src="app/main-config.js"></script>
+		<script type="text/javascript" src="lib-app/slideShow.js"></script>
+
 	</body>
 </html>
+
+<script>
+
+
+</script>

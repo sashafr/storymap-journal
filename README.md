@@ -1,6 +1,23 @@
 ﻿Story Map Journal
 =================
 
+This app uses a customized version of the StoryMap code.  Most of the modifications are found in custom-scripts.js.  However, several modifications were made to the base code.
+
+NEW ELEMENTS AND CONFIGURATION
+New elements for the filter, toggle, hide and show all buttons were added to the div mainStagePanel starting at line 155 of index.html.  Styling for those elements starts at line 176 of index.html.
+
+The StoryMap ID, which links the code to an individual storymap, is set in the appid on line 41 of index.html.
+
+GEOCODER:
+The geocoder search bounds were set in lines 618-631 of CommonHelper.js (storymaps/common/utils), in the setGeocoderSources function.  Additionally, the info window was turned off and labels added in the SearchOptions at lines 472-478 of CommonHelper.js.
+Finally, the button mode was enabled to keep the geocoder expanded at line 45 of Geocoder.js (storymaps/common/mapcontrols/geocoder).
+
+SIDE PANEL NAVIGATION
+When navigating away from the home page, the filter and toggle buttons are hidden in the function navigateStoryToIndex in MainView.js (storymaps/tpl/core/MainView.js).  
+
+LIBRARIES
+This app uses the library slideShow.js to create slideshows of images.  The code can be found in the lib-app folder.
+
 The Story Map Journal is ideal when you want to combine narrative text with maps and other embedded content. A Map Journal contains entries, or sections, that users simply scroll through. Each section in a Map Journal has an associated map, image, video or web page. Actions can also be defined in journal sections so that, for example, clicking a word automatically zooms the section’s map to a particular location.
 
 ![App](map-journal-storytelling-template-js.png)

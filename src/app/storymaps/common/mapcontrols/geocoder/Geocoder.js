@@ -37,11 +37,12 @@ define(['lib-build/tpl!./Geocoder',
 			}
 
 			function createGeocoder() {
+        //alert("creating");
 				var container = $(map.container).find('.geocoderBtn');
 				geocoderDeferred = CommonHelper.createGeocoder({
 					map: map,
 					domNode: container.find('.geocoderContainer')[0],
-					enableButtonMode: true,
+					enableButtonMode: false,
 					searchOptions: webmapSettings
 				}).then(function(geocoder) {
 					_geocoder = geocoder;

@@ -1,5 +1,6 @@
 #sidePanel {
 	display: none;
+
 }
 
 #sidePanelInner {
@@ -9,6 +10,10 @@
 	/*box-shadow: 4px 3px 6px 0px #333;*/
 	border-right: 1px solid black;
 	padding-left: 34px;
+	background-color: #d8e6cc;
+	
+
+
 }
 
 /*

@@ -4,10 +4,12 @@
 	-webkit-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
 	-moz-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
 	box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
+  width: 100%;
 }
 
 #mainStagePanelInner {
 	position: relative;
+  width: 100%;
 }
 
 #mainStagePanel .medias {
@@ -40,6 +42,7 @@
 .mainMediaContainer.active {
 	display: block !important;
 	z-index: 1;
+  width:100%;
 	visibility: visible;
 	-webkit-animation: fadein 1s;
 	-moz-animation: fadein 1s;
@@ -109,7 +112,8 @@ html.dj_ie9 .mainMediaContainer.has-error .mainStageErrorContainer {
 }
 
 .mapContainer.legend {
-	display: none;
+	display: inline-block;
+
 }
 
 /*
@@ -131,22 +135,75 @@ html.dj_ie9 .mainMediaContainer.has-error .mainStageErrorContainer {
 
 .esriPopup .title {
 	color: transparent;
+  background-color: #8FA2B6;
+
 }
 
+.esriPopup.light .outerPointer {
+background: #8FA2B6;
+}
+
+.esriPopup .pointer.bottom {
+background: #8FA2B6;
+}
+
+.esriPopup .pointer.top {
+background: #8FA2B6;
+}
+
+.esriPopup .pointer{
+background: #8FA2B6;
+}
 .esriPopup.light .titlePane {
 	height: 21px;
+  background-color: #8FA2B6;
+  width: 300px;
+
 }
 
 .esriPopup.light .titleButton {
+
 	top: 4px;
+  left: 270px;
+  background-color: #8FA2B6;
+  color: white;
 }
 
 .esriPopup .titleButton.close {
+
 	opacity: 1.0 !important;
+  background-color: #8FA2B6;
+
+
 }
 
 .esriPopup .maximize {
 	display: none;
+
+
+}
+
+.esriPopupWrapper {
+   position: relative;
+
+}
+
+.esriPopup.light .esriPopupWrapper {
+
+/*position: relative; */
+
+}
+
+.esriPopup.light .esriPopupVisible {
+/*  left: 15%;
+  top: 75%;
+  position: relative*/
+
+}
+
+.esriPopup {
+/*  position: relative */
+
 }
 
 /* Somehow there is a conflict */
@@ -158,19 +215,33 @@ html.dj_ie9 .mainMediaContainer.has-error .mainStageErrorContainer {
 
 .esriPopup p {
 	margin: 12px 0;
+
+
 }
 
 .esriPopup hr {
 	margin: 6px 0;
 	border: 1px inset;
+
+
 }
 
 .esriPopup a {
 	font-weight: normal;
+
 }
 
 .esriPopup.light .contentPane {
-	color: #333333;
+background-color: #8FA2B6;
+width: 300px;
+height: 300px;
+color: white;
+
+}
+
+
+.esriPopup .contentPane {
+max-height: 300px;
 }
 
 /*
