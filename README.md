@@ -1,12 +1,65 @@
 ﻿Story Map Journal
 =================
 
-This app uses a customized version of the StoryMap code.  Most of the modifications are found in custom-scripts.js.  However, several modifications were made to the base code.
+INSTRUCTIONS FOR STUDENTS WORKING ON THE MAP
+There's not a good way to collaborate with ArcGIS that I know of.  The most sensible thing to me would seem to be the following:
+--Divide the map into blocks by creating polygons around sections of property.  Each of these blocks will be given a name or number.  I can do this easily, or someone else can do it--just create a new feature, trace the blocks, then add a text field with the name and give it a sensible name (like the addresses it contains)
+--There will be a google sheet that keeps track of each block and whether it has been traced.  When students are working on a block, they can go to the google sheet and change that block's status to "checked out" so that other students know not to work on that one.  Alternately, they can each be assigned specific ones ahead of time.
+--Students will then create their own shapefile just for that block, with that block's name.  I think it's best to keep each block completely separate and then they can all be merged later.  Students can trace all the parcels in that block, label them, and then upload that block to a Dropbox or something (all ArcGIS files should be uploaded as zip files).  They can then change the block's status to "completed".  This does require them to pay attention to the google sheet but there's not really any other way to do it, if two people tried to edit a shapefile at the same time they would overwrite each other's changes.  
+--There is an option to do the editing online by publishing the layers as a hosted feature layer or ArcGIS Service, which would involve all the complications we've already run up against with the base map.  There is also apparently an offline synchronization option where you can download the map to an offline device, edit it, and then upload it again.  However, I think in both these cases, if two people were editing at the same time, their changes would still overwrite each other.
 
-NEW ELEMENTS AND CONFIGURATION
-New elements for the filter, toggle, hide and show all buttons were added to the div mainStagePanel starting at line 155 of index.html.  Styling for those elements starts at line 176 of index.html.
 
-The StoryMap ID, which links the code to an individual storymap, is set in the appid on line 41 of index.html.
+
+
+THINGS LEFT TO DO ON THE MAPPING SOCIETY HILL PROJECT
+
+--We may need to do some testing to see why the site is displaying weirdly on some computers (namely mine)
+--Manually move the geocoded points into parcels.  movePoints is a short video I made for how to do this.  Once we do this, we can get the attribute data from the points, such as when a building was demolished, into the parcels and symbolize the parcels in that way.  Also once we do this, we can then get the data on construction and demolition into the layer of photo points (by spatially joining both to the parcels layer), so that the photo points on the map can be filtered by things like date demolished or type of new construction.  
+--Set the selectors and toggle to reflect real data once we have it.  Currently the dropdown selector filters by number of images for testing purposes, but ideally it would filter by some data from the geocoded points.  The slider filters by a field "Date_Dem" which contains random demolition dates that I entered into the points shapefile, but ideally it would filter by the actual date demolished or changed (which would come from the geocoded points).  The toggle toggles between the same parcels layer that's just symbolized different but ideally would toggle between modern and historic layers.
+--Manually trace the parcels in the georeferenced old maps provided on OSF.  digitizing features is a short video that show how to do this.  Alternately, we could try to track down an already existing map of old parcels if Azavea or someone else has them.  If we're able to get historic parcels for all of Society Hill, we can then use a slider on the parcels the same way I used a slider on the points, with the modern parcel layer underneath to show them disappearing or changing over time.  This could also be the layer that is toggled on and off.  
+--Get the oral histories into Omeka.  There needs to be some way to tie these oral histories to the points. Probably the best way to do this would be to create a new field in the shapefile, manually add the Omeka record number, and then it could create a field in the shapefile that was http://omeka.com/thisproject/record + number.  A commented out framework for this is in getImg. The Oral History storymap is already designed to create an href in the popup from a link in the attribute table.
+--Get the oral history pictures tied to the points.  She had initially said that the oral history pictures could be included on the oral history's web page instead of in the popups.  However, that was before we had a separate map for just the oral histories, and she seemed interested in putting them in the popups on that map.  Again the popups already create images from links in the attribute table that would ideally point to the photos.  If we have a systematic way of generating the addresses of the pictures based on the points, we could get those addresses into the shapefile's attribute table in the same way.  If there's more than one picture for a location, perhaps they could be together in a collection in Omeka.  In the attribute table, you would then have a value for each record indicating its collection number, and how many records are in that collection, and you could loop through and add links to each.  A commented out framework for this is in getImg.  I'm reluctant to go much farther until we know exactly what format the oral histories and images will be stored in, but once I know it I can accommodate it.  Right now the oral histories are being added to the shapefile with all the points, but if you wanted a separate layer of just oral histories you could select only those with oral histories and create a new shapefile of them  
+--Get the rest of the photo data from Azavea.  Once you have this data as a KML, here are the steps to get it into a layer usable by storymap:
+  --Run Sasha's script to extract the date and html data from the photo data into a new KML
+  --Import the KML to ArcMap using Conversion -> From KML -> KML to layer (in the toolbox)
+  --Export just the shapefile as a new shapefile
+  --Run the Find Identical tool on the exported shapefile (Data management -> General).  Select shape as the input field. This will create a table where all features that have the same shape field (same location) have the same value.  The value itself is arbitrary.
+  --Use a tabular join to join the output table to the shapefile of photo points.  Use IN_FID as the join field for the table and FID as the field for the shapefile.
+  --Export the join to a new shapefile.
+  --In the new shapefile, create two new fields, MergeStr (string) and MergeNo (integer).  Copy FEAT_SEQ into both, then delete FEAT_SEQ.
+  --Import the original KML from Azavea into ArcMap and use a tabular join to join it to the modified one, on the FID field for both files.  This is necessary because the original KML contains all the image links but not the dates, whereas Sasha's script got all the dates but missed some of the image links.  There's no need to fix Sasha's script, my scripts are designed for the joined shapefile
+  --Instructions for running a custom script in ArcMap:
+    In  ArcMap > Catalog > Toolboxes > My Toolboxes, either select an existing toolbox
+    or right-click on My Toolboxes and use New > Toolbox to create (then rename) a new one.
+    Drag (or use ArcToolbox > Add Toolbox to add) this toolbox to ArcToolbox.
+    Right-click on the toolbox in ArcToolbox, and use Add > Script to open a dialog box.
+    In this Add Script dialog box, use Label to name the tool being created, and press Next.
+    In a new dialog box, browse to the .py file to be invoked by this tool, and press Next.
+    In the next dialog box put in the parameters, using dropdown menus wherever possible.  For getImg and deleteFields, there is one parameter:
+        Display Name              Data Type       Direction                                
+        Input Shapefile          Shapefile       Input
+     For getImg, the parameters are:
+          Display Name              Data Type       Direction                                
+          Input Shapefile          Shapefile       Input
+          Output Shapefile         Shapefile       Output
+    If the direction is output, make sure to change it in the bottom half of the dialogue box (the default is input)
+  --Run the script getImg to create new fields that contain date and link to the photo (this will modify the existing shapefile).  Right now photos with no date will be given a date of 3000 so that they'll appear at the end of the slideshow.
+  --Run the script combineIdentical to spatially join all records at the same location into a single point with all of
+  their attribute data (this will create a new shapefile)
+  --Run the script deleteFields to delete the many extraneous fields.  This is not necessary, as only a couple fields are selected for display in Storymap, but if you want to look at the file in ArcMap this can be helpful.  Exactly how many fields need to be deleted and what their names are will depend on the dataset so this script may require some tweaking to the exact names of the fields.  If you don't get all the extra fields it won't hurt anything, it will just make the file harder to look at (this will be modifying the shapefile you just created)
+  --The output should be a collection of points where each image for that point has its own date and image link field in the table
+  --Go into Windows Explorer and find all of the files for your output shapefile.  There should be 8, make sure you have them all.  Do not include a file with a .lock extension if there is one.  Compress them into a zip file.
+  --Go into ArcGIS online and open the map.  Go to add layer, from file, and load the zip file.  Save the map.
+  --In custom-scripts, turn on the alert map.graphicsLayerIds, and load the page.  This will print the names of all layers on the webmap.  The layer ID that corresponds to the file you just uploaded will be the name of that file and some numbers.  Put that layer ID into var LAYER_ID =  This will make the layer you just created the layer that the StoryMap uses as its points layer.
+
+
+  This app uses a customized version of the StoryMap code.  Most of the modifications are found in custom-scripts.js.  However, several modifications were made to the base code.
+
+  NEW ELEMENTS AND CONFIGURATION
+  New elements for the filter, toggle, hide and show all buttons were added to the div mainStagePanel starting at line 155 of index.html.  Styling for those elements starts at line 176 of index.html.
+
+  The StoryMap ID, which links the code to an individual storymap, is set in the appid on line 41 of index.html.  You can find the map ID at the end of the address of your map on ArcGIS online.  The map and all the layers in it must be made public or you'll have to log in every time you load the storymap.
+
 
 GEOCODER:
 The geocoder search bounds were set in lines 618-631 of CommonHelper.js (storymaps/common/utils), in the setGeocoderSources function.  Additionally, the info window was turned off and labels added in the SearchOptions at lines 472-478 of CommonHelper.js.
@@ -15,8 +68,11 @@ Finally, the button mode was enabled to keep the geocoder expanded at line 45 of
 SIDE PANEL NAVIGATION
 When navigating away from the home page, the filter and toggle buttons are hidden in the function navigateStoryToIndex in MainView.js (storymaps/tpl/core/MainView.js).  
 
+STYLING
+Various changes were made to the color of the popups, the side panel, etc., in storymaps/tpl/ui/MainStage.css and in storymaps/tpl/ui/desktop/SidePanel.css
+
 LIBRARIES
-This app uses the library slideShow.js to create slideshows of images.  The code can be found in the lib-app folder.
+This app uses the the Bootstrap slideshow library, which is included in the head of index.html.
 
 The Story Map Journal is ideal when you want to combine narrative text with maps and other embedded content. A Map Journal contains entries, or sections, that users simply scroll through. Each section in a Map Journal has an associated map, image, video or web page. Actions can also be defined in journal sections so that, for example, clicking a word automatically zooms the section’s map to a particular location.
 

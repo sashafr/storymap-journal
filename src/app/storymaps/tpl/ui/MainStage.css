@@ -143,6 +143,10 @@ html.dj_ie9 .mainMediaContainer.has-error .mainStageErrorContainer {
 background: #8FA2B6;
 }
 
+.esriPopup.light .pointer {
+background: #8FA2B6;
+}
+
 .esriPopup .pointer.bottom {
 background: #8FA2B6;
 }
@@ -157,14 +161,14 @@ background: #8FA2B6;
 .esriPopup.light .titlePane {
 	height: 21px;
   background-color: #8FA2B6;
-  width: 300px;
+  width: auto;
 
 }
 
 .esriPopup.light .titleButton {
 
 	top: 4px;
-  left: 270px;
+  /*left: 270px;*/
   background-color: #8FA2B6;
   color: white;
 }
@@ -175,6 +179,15 @@ background: #8FA2B6;
   background-color: #8FA2B6;
 
 
+
+}
+
+.esriPopup.light .titleButton.prev {
+  display:none;
+}
+
+.esriPopup.light .titleButton.next {
+  display:none;
 }
 
 .esriPopup .maximize {
@@ -189,7 +202,8 @@ background: #8FA2B6;
 }
 
 .esriPopup.light .esriPopupWrapper {
-
+  width:auto;
+  min-width:300px;
 /*position: relative; */
 
 }
@@ -204,6 +218,10 @@ background: #8FA2B6;
 .esriPopup {
 /*  position: relative */
 
+}
+
+.esriPopup .sizer {
+  width:auto;
 }
 
 /* Somehow there is a conflict */
@@ -233,15 +251,18 @@ background: #8FA2B6;
 
 .esriPopup.light .contentPane {
 background-color: #8FA2B6;
-width: 300px;
-height: 300px;
+width:auto;
+max-height: 600px;
+
 color: white;
 
 }
 
 
 .esriPopup .contentPane {
-max-height: 300px;
+max-height: 600px;
+width:auto;
+
 }
 
 /*

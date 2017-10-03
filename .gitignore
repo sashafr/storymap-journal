@@ -1,5 +1,7 @@
 deploy/
 node_modules/
+bibmap/
+*.tif
 
 #################
 ## Eclipse
