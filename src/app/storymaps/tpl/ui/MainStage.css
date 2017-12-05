@@ -252,7 +252,7 @@ background: #8FA2B6;
 .esriPopup.light .contentPane {
 background-color: #8FA2B6;
 width:auto;
-max-height: 600px;
+max-height: 800px;
 
 color: white;
 
@@ -260,7 +260,7 @@ color: white;
 
 
 .esriPopup .contentPane {
-max-height: 600px;
+max-height: 800px;
 width:auto;
 
 }

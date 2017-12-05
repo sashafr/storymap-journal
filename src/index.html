@@ -180,13 +180,18 @@
 					<div id = "geocoder" style = "position:relative; z-index:1000"></div>
 					<div id = "buttonDiv">
 						<input class="w3-button w3-large w3-round" style = "background-color: #d8e6cc" type="button"  id="showAll" value="Show all"/>
-						<select id="time_select" style = "background-color: #d8e6cc; height:30px" class="w3-button w3-large w3-round selector"><option value="init">(filter by date)</option></select>
+						<select id="time_select" style = "background-color: #d8e6cc; height:30px" class="w3-button w3-large w3-round selector"><option value="init">(filter by reuse)</option></select>
 						<select id="media_select" style = "background-color: #d8e6cc; height:30px; width:130px" class="w3-button w3-large w3-round selector">
 							<option value="init">(filter by media)</option>
 							<option value = "photo">Photos</option>
 							<option value = "oralhist">Oral Histories</option>
 							<option value = "both">Photos and Oral Histories</option>
 						</select>
+						<!--<select id="layer_select" style = "background-color: #d8e6cc; height:30px; width:130px" class="w3-button w3-large w3-round selector">
+							<option value="historic">Historic parcels</option>
+							<option value = "modern"> Modern footprints</option>
+							<option value = "none">No layers</option>
+						</select>-->
 					</div>
 					<div id = "toggle">
 						<div class="layerText">Historic parcels</div>
@@ -195,7 +200,7 @@
 							<span id = "toggleLayers" class="slider">
 							</span>
 						</label>
-						<div class="layerText" >Modern parcels</div>
+						<div class="layerText" >Modern building footprints</div>
 					</div>
 
 					<div id = "sliderDiv" class="row">

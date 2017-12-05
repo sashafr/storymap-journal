@@ -791,6 +791,7 @@ define(["lib-build/css!./MainView",
 
 			function onMapCommandHomeClick()
 			{
+			
 				var currentSection = app.data.getCurrentSection(),
 					currentSectionIsWebmap = !! (currentSection && currentSection.media && currentSection.media.type == 'webmap' && currentSection.media.webmap),
 					currentSectionDefineExtent = !! (currentSectionIsWebmap ? currentSection.media.webmap.extent : null),
@@ -801,6 +802,7 @@ define(["lib-build/css!./MainView",
 					return;
 
 				if ( currentSectionDefineExtent )
+
 					topic.publish("CORE_UPDATE_EXTENT", new Extent(currentSection.media.webmap.extent));
 				else
 					topic.publish("CORE_UPDATE_EXTENT", app.maps[webmapId].response.map._params.extent /*CommonHelper.getWebMapExtentFromItem(webmapItemInfo)*/);

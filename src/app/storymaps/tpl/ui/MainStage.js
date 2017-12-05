@@ -45,7 +45,7 @@ define(["lib-build/tpl!./MainMediaContainerMap",
 	){
 		return function MainStage(container, isInBuilder, mainView)
 		{
-	
+
 			var _this = this;
 
 			//
@@ -579,6 +579,7 @@ define(["lib-build/tpl!./MainMediaContainerMap",
 
 					var extent = media && media.webmap ? media.webmap.extent : null;
 					if ( extent ) {
+
 						try {
 							extent = new Extent(extent);
 						} catch (e){
@@ -592,6 +593,7 @@ define(["lib-build/tpl!./MainMediaContainerMap",
 					}
 
 					if ( extent )
+
 						app.map.setExtent(extent/*, true*/).then(function(){
 							applyPopupConfiguration(media.webmap.popup, index);
 							topic.publish("story-loaded-map", {
