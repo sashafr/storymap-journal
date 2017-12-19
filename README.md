@@ -1,6 +1,12 @@
 ﻿Story Map Journal
 =================
 
+**WE HAVE CHOSEN NOT TO CONTINUE DEVELOPING THIS PROJECT**
+
+You can find the new code we are using to implement this project in [this repository](https://github.com/upenndigitalscholarship/mappingSocietyHill). We found the restrictions of using the StoryMap format too confining for our goals and have switched to writing our own map interfacing using the ArcGIS API directly.
+
+------_original readme continues below_------------
+
 A more detailed readme for Story Map in general is found below.  This section refers specifically to this project.
 
 GETTING STARTED

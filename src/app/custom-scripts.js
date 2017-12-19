@@ -287,12 +287,12 @@ function(topic, Extent, SimpleFillSymbol, SimpleLineSymbol, Color, Graphic) {
           new Color([125,125,125,0.35])
         );
 
-    layer.on("mouse-over", function(evt){
+  /* layer.on("mouse-over", function(evt){
       var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
         map.graphics.add(highlightGraphic);
 
 
-    });
+    });*/
 
 //-------------------POPUP CREATION------------------------------------
 
@@ -304,6 +304,7 @@ function(topic, Extent, SimpleFillSymbol, SimpleLineSymbol, Color, Graphic) {
 
   //populate the popup template on click
   layer.on("click", function(evt) {
+    //alert("click");
     var feature = evt.graphic;
     //set the popup content to contain a div that will contain the slides, as well as the slideshow buttons
     popupTemplate.setTitle("Title");
@@ -422,6 +423,7 @@ function(topic, Extent, SimpleFillSymbol, SimpleLineSymbol, Color, Graphic) {
 
 
   layer2.on("click", function(evt) {
+    alert("click");
     var feature = evt.graphic;
     //set the popup content to contain a div that will contain the slides, as well as the slideshow buttons
     popupTemplate2.setTitle("Title");
